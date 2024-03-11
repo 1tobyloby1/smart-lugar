@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "(cd frontend && npm install) && (cd backend && npm install)",
+    "install-frontend": "(cd frontend && npm install)",
+    "install-backend": "(cd backend && npm install)",
+    "postinstall": "concurrently \"npm run install-backend\" \"npm run install-frontend\"",
     "start-frontend": "(cd frontend && npm start --foreground)",
     "start-backend": "(cd backend && npm start --exitcrash)",
     "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
