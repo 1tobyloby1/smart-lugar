@@ -1,0 +1,12 @@
+{
+  "name": "smart-lugar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "(cd frontend && npm install); (cd backend && npm install);",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

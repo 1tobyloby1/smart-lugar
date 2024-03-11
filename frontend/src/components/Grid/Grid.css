@@ -1,0 +1,7 @@
+.Grid-parent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: fit-content;
+  margin: auto;
+  gap: 40px;
+}

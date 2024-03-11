@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "Encode-Sans";
+  src: url("/public/assets/fonts/EncodeSans.ttf") format("woff");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Encode-Sans";
+  color: white;
+  overflow-x: hidden;
+}
+
+body {
+  background-image: url("/public/assets/images/Background.jpeg");
+
+  backdrop-filter: blur(150px);
+  height: 100%;
+  min-height: 100vh;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  font-size: 30px;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 22px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #b8b8b8;
+}
+
+.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  text-align: center;
+}

@@ -1,0 +1,8 @@
+.PageLayout-parent {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.PageLayout-parent .PageLayout-children {
+  position: relative;
+}

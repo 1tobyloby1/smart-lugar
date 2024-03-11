@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.right-content {
+  text-align: right;
+}
+
+.right-content h1 {
+    margin: 0;
+}
