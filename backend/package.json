@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "npx tsc",
+    "stop": "kill-port 8000",
     "start": "nodemon src/index.ts"
   },
   "keywords": [],
