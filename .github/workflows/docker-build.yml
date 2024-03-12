@@ -18,14 +18,14 @@ jobs:
 
       - name: Build and Push Frontend Docker Image
         run: |
-          docker-compose up --build
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend -f Dockerfile.frontend .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
 
-      #- name: Build and Push Frontend Docker Image
-      #  run: |
-      #    docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend -f Dockerfile.frontend .
-      #    docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+      - name: Build and Push Backend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend -f Dockerfile.backend .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
 
-      #- name: Build and Push Backend Docker Image
-      #  run: |
-      #    docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend -f Dockerfile.backend .
-      #    docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
+      - name: Deploy containers using Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
