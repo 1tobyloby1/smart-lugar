@@ -16,16 +16,8 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build and Push Frontend Docker Image
+      - name: Build and push Docker images using Docker Compose
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend -f Dockerfile.frontend .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
 
-      - name: Build and Push Backend Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend -f Dockerfile.backend .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend
-
-      - name: Deploy containers using Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml up -d
