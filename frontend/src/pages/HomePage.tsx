@@ -12,6 +12,7 @@ function HomePage() {
               title={"title: " + i}
               image={"image: " + i}
               href="air-condition"
+              components={[]}
             />
           );
         })}

@@ -1,4 +1,4 @@
-export const icons = [
+const Icons = [
     "air-condition",
     "curtains",
     "gloves",
@@ -6,3 +6,5 @@ export const icons = [
     "lights",
     "rotate-screen"
 ];
+
+export default Icons;
