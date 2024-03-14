@@ -1,11 +1,11 @@
-import { icons } from "../resources/icons";
+import Icons from "shared/resources/Icons"
 
 const path_folder = "/assets/icons/";
 
 export const findIcon = (name: string) => {
   let icon = "air-condition";
 
-  if (icons.includes(name)) {
+  if (Icons.includes(name)) {
     icon = name;
   }
 

@@ -2,14 +2,9 @@ import { useMemo } from "react";
 import "./Container.css";
 import { useNavigate } from "react-router-dom";
 import { findIcon } from "../../functions/findIcon";
+import Control from "shared/Models/Control";
 
-interface ContainerProps {
-  title: string;
-  image: string;
-  href: string;
-}
-
-function Container(props: ContainerProps) {
+function Container(props: Control) {
   const navigate = useNavigate();
 
   return useMemo(() => {
