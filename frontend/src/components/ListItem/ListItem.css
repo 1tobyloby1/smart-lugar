@@ -1,0 +1,12 @@
+.list-item-parent {
+    margin: 12px;
+    padding: 20px 30px;
+    display: flex;
+    font-size: 20px;
+    min-width: 300px;
+    width: fit-content;
+    border-radius: 15px;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, .28);
+    border: 5px solid rgba(255, 255, 255, .35);
+}
