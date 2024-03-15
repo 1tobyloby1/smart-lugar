@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import PageLayout from "../components/PageLayout/PageLayout";
+import TemperatureSlider from "../components/TemperatureSlider/TemperatureSlider";
 
 const routes = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const routes = createBrowserRouter([
         content
       </PageLayout>
     ),
+  },
+  {
+    path: "/test",
+    element: <TemperatureSlider value={20} type={1} />
   },
   {
     path: "*",
