@@ -11,7 +11,7 @@ const TestDataCabins:Array<Cabin> = [
                 href: "air-condition",
                 components: [
                     {
-                        type: ComponentTypes.Temperature_Slider,
+                        type: "Temperature_Slider",
                         value: 20,
                         label: "Temperature"
                     }
@@ -23,22 +23,22 @@ const TestDataCabins:Array<Cabin> = [
                 href: "lights",
                 components: [
                     {
-                        type: ComponentTypes.List_Item,
+                        type: "List_Item",
                         value: 0,
                         label: "Living room"
                     },
                     {
-                        type: ComponentTypes.List_Item,
+                        type: "List_Item",
                         value: 1,
                         label: "Bathroom"
                     },
                     {
-                        type: ComponentTypes.List_Item,
+                        type: "List_Item",
                         value: 1,
                         label: "Bedroom 2"
                     },
                     {
-                        type: ComponentTypes.List_Item,
+                        type: "List_Item",
                         value: 0,
                         label: "Balcony"
                     }
