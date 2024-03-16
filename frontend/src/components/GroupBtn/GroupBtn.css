@@ -1,0 +1,64 @@
+.button-bar {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.67);
+  border-radius: 30px;
+  outline: 5px solid rgba(255, 255, 255, 0.35);
+  padding: 5px;
+}
+
+.button-bar button {
+  position: relative;
+  padding: 12px 50px;
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0);
+  font-weight: bold;
+}
+
+.button-bar button::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.button-bar button + button {
+  margin-left: 10px;
+}
+.button-bar button.active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000;
+  outline: 3px solid #90a3a4;
+}
+
+.button-bar button:first-child {
+  color: #3668a3;
+
+}
+
+.button-bar button:first-child::before {
+    background-color: #3668a3;
+  }
+
+.button-bar button:nth-child(2) {
+  color: #00656b;
+}
+
+.button-bar button:nth-child(2)::before {
+    background-color: #00656b;
+  }
+
+.button-bar button:last-child {
+  color: #499969;
+}
+
+.button-bar button:last-child::before  {
+    background-color: #499969;
+  }
