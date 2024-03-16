@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './GroupBtn.css'
 
 function GroupBtn() {
-    const [activeButton, setActiveButton] = useState(null);
+    const [activeButton, setActiveButton] = useState(1);
 
     const handleButtonClick = (buttonId: any) => {
         setActiveButton(buttonId);

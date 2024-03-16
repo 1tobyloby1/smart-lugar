@@ -30,7 +30,7 @@
 }
 
 .button-bar button + button {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .button-bar button.active {
   background-color: rgba(255, 255, 255, 0.7);
@@ -62,3 +62,14 @@
 .button-bar button:last-child::before  {
     background-color: #499969;
   }
+
+.button-bar button:not(:last-child)::after {
+  content: "";
+  position:absolute;
+  right: -10px;
+  top:50%;
+  transform: translateY(-50%);
+  height: 30px;
+  width: 2px;
+  background-color: white;
+}
