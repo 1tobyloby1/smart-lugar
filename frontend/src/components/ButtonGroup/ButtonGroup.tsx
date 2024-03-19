@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './ButtonGroup.css'; // Stylesheet for ButtonGroup component
 
 const ButtonGroup = () => {
@@ -8,15 +8,14 @@ const ButtonGroup = () => {
     setSelectedOption(option);
   };
 
-  // Calculate the left position of the selected option based on its index
   const calculateLeftPosition = () => {
     switch (selectedOption) {
       case 1:
         return '0%';
       case 2:
-        return '33.33%';
+        return '34.995%';
       case 3:
-        return '66.66%';
+        return '69.99%';
       default:
         return '0%';
     }
@@ -32,7 +31,9 @@ const ButtonGroup = () => {
       </button>
       <div className="option-selector">
         <button className="option-selector-button" onClick={() => handleOptionClick(1)}>1</button>
+        <div className='divider'></div>
         <button className="option-selector-button" onClick={() => handleOptionClick(2)}>2</button>
+        <div className='divider'></div>
         <button className="option-selector-button" onClick={() => handleOptionClick(3)}>3</button>
       </div>
     </div>

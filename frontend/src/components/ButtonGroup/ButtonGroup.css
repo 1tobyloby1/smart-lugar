@@ -1,40 +1,42 @@
 .button-group {
-    position: relative;
-    width: 300px;
-    margin: 20px auto;
-  }
-  
-  .option-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 33.33%;
-    height: 100%;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: left 0.3s ease;
-  }
-  
-  .option-selector {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .option-selector-button {
-    padding: 5px 10px;
-    border: none;
-    background-color: transparent;
-    color: #007bff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .option-selector-button:hover {
-    color: #0056b3;
-  }
-  
+  position: relative;
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.option-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(30% - 6px);
+  height: calc(100% - 6px);
+  border: none;
+  margin: 3px;
+  transition: left 0.3s ease;
+  border-radius: 200px;
+  background-color: rgba(255, 255, 255, 1);
+  color: #000;
+  outline: 3px solid #90a3a4;
+  z-index: 9;
+}
+
+.option-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 30px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.67);
+  outline: 5px solid rgba(255, 255, 255, 0.35);
+}
+
+.option-selector-button {
+  width: 100px;
+  border: none;
+  position: relative;
+  background-color: transparent;
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
