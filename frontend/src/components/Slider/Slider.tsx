@@ -25,6 +25,7 @@ const Slider = (props: Component) => {
         onChange={handleOnChange}
         style={{ background: getSliderBackground() }}
       />
+      <span className="slider-current-value">{value} %</span>
     </div>
   );
 };
