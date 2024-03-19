@@ -1,0 +1,40 @@
+.button-group {
+    position: relative;
+    width: 300px;
+    margin: 20px auto;
+  }
+  
+  .option-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 33.33%;
+    height: 100%;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: left 0.3s ease;
+  }
+  
+  .option-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .option-selector-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    color: #007bff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .option-selector-button:hover {
+    color: #0056b3;
+  }
+  
