@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import PageLayout from "../components/PageLayout/PageLayout";
 import GroupBtn from "../components/GroupBtn/GroupBtn";
+import ButtonGroup from "../components/ButtonGroup/ButtonGroup";
 
 const routes = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const routes = createBrowserRouter([
       <PageLayout title="Other stuff" subTitle="Cabin543">
         content
         <GroupBtn />
+        <ButtonGroup />
       </PageLayout>
     ),
   },
