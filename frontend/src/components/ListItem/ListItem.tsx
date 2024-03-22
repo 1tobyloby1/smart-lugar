@@ -19,7 +19,17 @@ function ListItem(props: Component) {
           <Slider {...props} />
         </div>
       </div>
-      <button className="expandable-button" onClick={() => setIsExpanded(!isExpanded)}>open</button>
+      <button
+        className="expandable-button"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <img
+          src={
+            isExpanded ? "assets/icons/close.png" : "assets/icons/settings.png"
+          }
+          height={30}
+        />
+      </button>
     </div>
   );
 }
