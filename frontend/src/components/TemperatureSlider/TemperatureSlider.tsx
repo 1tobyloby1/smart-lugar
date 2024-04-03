@@ -1,12 +1,12 @@
-import Component from "shared/Models/Component";
+import Controller from "shared/Models/Controller";
 import "./TemperatureSlider.css";
 import CircularSlider from "@fseehawer/react-circular-slider";
 
-function TemperatureSlider(props: Component) {
+function TemperatureSlider(props: Controller) {
   return (
     <div className="temperature-slider-parent">
       <CircularSlider
-        initialValue={props.value as number}
+        initialValue={1 as number}
         onChange={(value: any) => console.log(value)}
         min={0}
         max={30}

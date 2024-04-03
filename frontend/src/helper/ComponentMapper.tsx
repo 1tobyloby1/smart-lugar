@@ -1,16 +1,16 @@
-import Component from "shared/Models/Component";
 import ComponentLoader from "./ComponentLoader";
 import ComponentTypes from "shared/resources/ComponentTypes";
+import Controller from "shared/Models/Controller";
 
-const ComponentMapper = (components: Component[]) => {
+const ComponentMapper = (controllers: Controller[]) => {
   return (
     <>
-      {components.map((component, index) => {
+      {controllers.map((controller) => {
         return (
           <ComponentLoader
-            key={`${component.type}-${index}`}
-            componentPath={ComponentTypes[component.type]}
-            data={component}
+            key={controller.nodeId}
+            componentPath={ComponentTypes[controller.type]}
+            data={controller}
           />
         );
       })}

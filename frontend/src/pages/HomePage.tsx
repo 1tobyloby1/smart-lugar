@@ -15,7 +15,7 @@ function HomePage() {
     });
 
     if (response.successful) {
-      setcabin(response.data[0] as Cabin);
+      setcabin(response.data as Cabin);
     }
   };
 
@@ -24,11 +24,11 @@ function HomePage() {
   }, []);
 
   return (
-    <PageLayout title="Cabin Control" subTitle="Cabin543">
+    <PageLayout title="Cabin Control" subTitle={cabin?.displayName ?? ""}>
       <Grid>
         {cabin &&
-          cabin.controls.map((control) => {
-            return <Container {...control} key={control.href} />;
+          cabin.zones.map((zone) => {
+            return <Container {...zone} key={zone.nodeId} />;
           })}
       </Grid>
     </PageLayout>

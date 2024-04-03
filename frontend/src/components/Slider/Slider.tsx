@@ -1,8 +1,8 @@
 import { useState } from "react";
+import Controller from "shared/Models/Controller";
 import "./Slider.css";
-import Component from "shared/Models/Component";
 
-const Slider = (props: Component) => {
+const Slider = (props: Controller) => {
   const [value, setValue] = useState(50);
 
   const handleOnChange = (event: any) => {

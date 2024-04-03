@@ -4,12 +4,22 @@ import Cabin from "shared/Models/Cabin";
 import defaultRoutes from "../resources/routes";
 import componentMapping from "../helper/ComponentMapper";
 import PageLayout from "../components/PageLayout/PageLayout";
-import Control from "shared/Models/Control";
+import Zone from "shared/Models/Zone";
+import Controller from "shared/Models/Controller";
 
-const ControlPage = (control: Control) => {
+const ZonePage = (zone: Zone, subTitle: string) => {
+  const controllers: Controller[] = zone.rooms.map((room) => {
+    return room.controllers.map((controller) => {
+      return {
+        room: room.displayName,
+        ...controller,
+      };
+    });
+  }).flat();
+
   return (
-    <PageLayout title={control.title} subTitle="Placeholder">
-      {componentMapping(control.components)}
+    <PageLayout title={zone.displayName} subTitle={subTitle}>
+      {componentMapping(controllers)}
     </PageLayout>
   );
 };
@@ -24,12 +34,12 @@ const generateRoutes = async () => {
   });
 
   if (response.successful) {
-    cabin = response.data[0] as Cabin;
+    cabin = response.data as Cabin;
 
-    const newRoutes = cabin.controls.map((control): RouteObject => {
+    const newRoutes = cabin.zones.map((zone): RouteObject => {
       return {
-        path: control.href,
-        element: ControlPage(control),
+        path: zone.browseName,
+        element: ZonePage(zone, cabin.displayName),
       };
     });
 

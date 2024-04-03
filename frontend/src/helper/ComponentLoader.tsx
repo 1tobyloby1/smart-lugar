@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Component from "shared/Models/Component";
+import Controller from "shared/Models/Controller";
 
 const loadComponent = async (path: string) => {
   let component;
@@ -14,7 +14,7 @@ const loadComponent = async (path: string) => {
 
 interface ComponentLoaderProps {
   componentPath: string;
-  data: Component;
+  data: Controller;
 }
 
 const ComponentLoader = (props: ComponentLoaderProps) => {

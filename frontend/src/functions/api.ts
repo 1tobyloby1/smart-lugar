@@ -3,6 +3,7 @@ import axios, { AxiosError, Method } from "axios";
 interface apiProps {
   url: string;
   method: Method;
+  params?: any;
 }
 
 export interface apiResponse {
@@ -15,6 +16,7 @@ const api = async (props: apiProps): Promise<apiResponse> => {
     const request = await axios({
       method: props.method,
       url: process.env.REACT_APP_API_HOST + props.url,
+      params: props.params
     });
 
     const isSuccessful = request.status === 200;
