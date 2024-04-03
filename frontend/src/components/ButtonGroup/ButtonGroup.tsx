@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './ButtonGroup.css'; // Stylesheet for ButtonGroup component
+import './ButtonGroup.css';
 
 const ButtonGroup = () => {
   const [selectedOption, setSelectedOption] = useState(1);
@@ -27,14 +27,14 @@ const ButtonGroup = () => {
         className="option-button"
         style={{ left: calculateLeftPosition() }}
       >
-        Option {selectedOption}
+        Option
       </button>
       <div className="option-selector">
-        <button className="option-selector-button" onClick={() => handleOptionClick(1)}>1</button>
+        <button className="option-selector-button" onClick={() => handleOptionClick(1)}>Comfort</button>
+        <div className='divider' ></div>
+        <button className='option-selector-button' onClick={() => handleOptionClick(2)}>ECO</button>
         <div className='divider'></div>
-        <button className="option-selector-button" onClick={() => handleOptionClick(2)}>2</button>
-        <div className='divider'></div>
-        <button className="option-selector-button" onClick={() => handleOptionClick(3)}>3</button>
+        <button className="option-selector-button" onClick={() => handleOptionClick(3)}>ECO+</button>
       </div>
     </div>
   );
