@@ -1,10 +1,10 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import PageLayout from "../components/PageLayout/PageLayout";
 import GroupBtn from "../components/GroupBtn/GroupBtn";
 import ButtonGroup from "../components/ButtonGroup/ButtonGroup";
 
-const routes = createBrowserRouter([
+const defaultRoutes:RouteObject[] = [
   {
     path: "/",
     element: <HomePage />,
@@ -23,6 +23,6 @@ const routes = createBrowserRouter([
     path: "*",
     element: <Navigate to="/" replace />,
   },
-]);
+];
 
-export default routes;
+export default defaultRoutes;

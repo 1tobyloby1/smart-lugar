@@ -4,5 +4,9 @@
 }
 
 .PageLayout-parent .PageLayout-children {
+  display: flex;
+  margin-top: 50px;
   position: relative;
+  align-items: center;
+  flex-direction: column;
 }
