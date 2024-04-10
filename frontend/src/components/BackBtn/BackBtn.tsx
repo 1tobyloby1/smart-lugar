@@ -7,9 +7,7 @@ function BackBtn() {
 
   const elm = useMemo(() => {
     return (
-      <div className="BackBtn-parent" onClick={() => navigate(-1)}>
-        Back
-      </div>
+      <img className="Back" src="/assets/images/BackBtn.png" onClick={() => navigate(-1)} />
     );
   }, [navigate]);
 
