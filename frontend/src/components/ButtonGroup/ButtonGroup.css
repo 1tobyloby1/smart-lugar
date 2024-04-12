@@ -14,7 +14,7 @@
   margin: 3px;
   transition: left 0.3s ease;
   border-radius: 200px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0);
   color: #000;
   outline: 3px solid #90a3a4;
   z-index: 9;
