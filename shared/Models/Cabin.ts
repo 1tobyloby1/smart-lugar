@@ -1,6 +1,7 @@
-import Control from "./Control";
+import Zones from "./Zone";
 
 export default interface Cabin {
-    id: string;
-    controls: Array<Control>;
+    nodeId: string;
+    displayName: string;
+    zones: Zones[];
 }
