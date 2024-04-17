@@ -8,6 +8,7 @@ interface apiProps {
 
 export interface apiResponse {
   successful: boolean;
+  status: number;
   data: any;
 }
 
@@ -19,10 +20,10 @@ const api = async (props: apiProps): Promise<apiResponse> => {
       params: props.params
     });
 
-    const isSuccessful = request.status === 200;
-    return { successful: isSuccessful, data: request.data };
+    const isSuccessful = request.status === 200 || request.status === 201;
+    return { successful: isSuccessful, data: request.data, status: request.status };
   } catch (error: any) {
-    return { successful: false, data: (error as AxiosError).message };
+    return { successful: false, data: (error as AxiosError).message, status: (error as AxiosError).response?.status ?? 500 };
   }
 };
 

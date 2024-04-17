@@ -24,14 +24,16 @@ const StoredScreen = () => {
   };
 
   const storeScreen = async (screen: ScreenMap): Promise<boolean> => {
-    const screenExists = false;//await checkifScreenExists(screen);
+    const screenExists = await checkifScreenExists(screen);
     if (!screenExists) {
       const storedScreens = await getStoredScreens();
       storedScreens.push(screen);
 
       return await WriteFile(screenFilePath, JSON.stringify(storedScreens));
+    } else {
+      removeScreen(screen.ip);
+      return storeScreen(screen);
     }
-    return false;
   };
 
   const removeScreen = async (ip: string): Promise<boolean> => {
