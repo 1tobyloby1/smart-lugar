@@ -8,6 +8,10 @@ const options: swaggerJSDoc.Options = {
       version: '1.0.0',
       description: 'Description of your API',
     },
+    externalDocs: {
+      description: 'Find out more about Swagger',
+      url: 'http://swagger.io',
+    },
   },
   apis: ['./src/routes/*.ts'],
 };

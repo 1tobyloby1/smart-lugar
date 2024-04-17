@@ -13,8 +13,8 @@ function PageLayout(props: PageLayoutProps) {
     <div className="PageLayout-parent">
       <h4>{props.subTitle}</h4>
       <h1>{props.title}</h1>
-      <BackBtn />
       <div className="PageLayout-children">{props.children}</div>
+      <BackBtn />
     </div>
   );
 }

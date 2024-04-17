@@ -18,6 +18,8 @@ const MapOPCUA = async (): Promise<Cabin[]> => {
 
         cabins[i] = cabin;
     }
+
+    await opcuaInstance.disconnect();
     return cabins;
 }
 

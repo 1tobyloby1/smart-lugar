@@ -17,6 +17,7 @@ export interface OPCUAProps {
   readVariable: (nodeId: string) => Promise<DataValue>;
   updateVariable: (nodeId: string, value: any) => Promise<StatusCode>;
   callMethod: (nodeId: string, inputArguments?: []) => Promise<CallMethodResult>;
+  disconnect: () => Promise<void>;
 }
 
 const OPCUA = (): OPCUAProps => {
@@ -28,16 +29,25 @@ const OPCUA = (): OPCUAProps => {
     session = await client.createSession();
   };
 
-  const browseObject = async (nodeId: string, options?: BrowseOptions) => {
-    const browseResult = await session.browse({
-      nodeId: nodeId,
-      ...options,
-    });
+  const disconnect = async () => {
+    await session.close();
+    await client.disconnect();
+  };
 
-    if (options?.filter) {
-      return browseResult.references!.filter(options.filter);
+  const browseObject = async (nodeId: string, options?: BrowseOptions) => {
+    try {
+      const browseResult = await session.browse({
+        nodeId: nodeId,
+        ...options,
+      });
+  
+      if (options?.filter) {
+        return browseResult.references!.filter(options.filter);
+      }
+      return browseResult.references;
+    } catch (error) {
+      return [];
     }
-    return browseResult.references;
   };
 
   const browseObjectRecursive = async (nodeId: string, filter: (r: ReferenceDescription) => boolean, options?: BrowseOptions) => {
@@ -89,6 +99,7 @@ const OPCUA = (): OPCUAProps => {
     readVariable,
     updateVariable,
     callMethod,
+    disconnect,
   };
 };
 

@@ -57,7 +57,7 @@ mapRoutes.get("/interact", async (req: Request, res: Response) => {
 
   const opcuaInstance = OPCUA();
   await opcuaInstance.connect();
-
+  
   const object = await opcuaInstance.browseObject(nodeId.toString(), {
     resultMask: ResultMask.NodeClass,
   });
@@ -65,7 +65,7 @@ mapRoutes.get("/interact", async (req: Request, res: Response) => {
     res.status(400).json({ message: "Invalid nodeId" });
     return;
   }
-
+  
   const nodeClass = object[0].nodeClass;
   if (nodeClass === NodeClass.Method) {
     const result = await opcuaInstance.callMethod(nodeId.toString());
@@ -76,6 +76,7 @@ mapRoutes.get("/interact", async (req: Request, res: Response) => {
   } else {
     res.status(400).json({ message: "Unknown nodeClass" });
   }
+  await opcuaInstance.disconnect();
 });
 
 export default mapRoutes;
