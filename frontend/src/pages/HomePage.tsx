@@ -4,9 +4,11 @@ import Grid from "../components/Grid/Grid";
 import PageLayout from "../components/PageLayout/PageLayout";
 import Cabin from "shared/Models/Cabin";
 import api from "../functions/api";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [cabin, setcabin] = useState<Cabin | null>(null);
+  const navigate = useNavigate();
 
   const fetchCabin = async () => {
     const response = await api({
@@ -16,6 +18,8 @@ function HomePage() {
 
     if (response.successful) {
       setcabin(response.data as Cabin);
+    } else if (response.status === 404) {
+      navigate("/setup");
     }
   };
 
