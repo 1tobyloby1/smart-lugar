@@ -1,27 +1,33 @@
 import Controller from "shared/Models/Controller";
 import Switch from "react-switch";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Toggle.css";
-import GetComponentData from "../../functions/GetComponentData";
+import Interact from "../../functions/Interact";
 
 function Toggle(props: Controller) {
   const [isChecked, setisChecked] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const data = await GetComponentData(props.IsEnabled);
-      console.log(data);
+      const data = await Interact(props.nodeId, props.IsEnabled);
       
       if (data !== null) {
         setisChecked(data as boolean);
       }
     })();
+  }, [props.nodeId, props.IsEnabled]);
 
-  }, []);
+  const handleToggle = async (newValue: boolean) => {
+    const methodIdToCall = isChecked ? props.Disable : props.Enable;
+    const result = await Interact(props.nodeId, methodIdToCall);
+    console.log(result);
+
+    setisChecked(newValue);
+  };
 
   return (
     <Switch
-      onChange={(checked) => setisChecked(checked)}
+      onChange={handleToggle}
       checked={isChecked}
       width={80}
       height={35}

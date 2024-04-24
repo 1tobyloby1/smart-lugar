@@ -1,7 +1,6 @@
 import ComponentLoader from "./ComponentLoader";
 import ComponentTypes from "shared/resources/ComponentTypes";
 import Controller from "shared/Models/Controller";
-import { useMemo } from "react";
 import SubPages from "../components/SubPages";
 
 const ComponentMapper = (controllers: Controller[]) => {

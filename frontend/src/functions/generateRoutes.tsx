@@ -6,6 +6,7 @@ import componentMapping from "../helper/ComponentMapper";
 import PageLayout from "../components/PageLayout/PageLayout";
 import Zone from "shared/Models/Zone";
 import Controller from "shared/Models/Controller";
+import { toast } from "react-toastify";
 
 const ZonePage = (zone: Zone, subTitle: string) => {
   const controllers: Controller[] = zone.rooms.map((room) => {
@@ -44,6 +45,8 @@ const generateRoutes = async () => {
     });
 
     routes.push(...newRoutes);
+  } else {
+    toast.error(response.data);
   }
 
   return createBrowserRouter(routes);

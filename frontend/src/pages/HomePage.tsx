@@ -10,22 +10,22 @@ function HomePage() {
   const [cabin, setcabin] = useState<Cabin | null>(null);
   const navigate = useNavigate();
 
-  const fetchCabin = async () => {
-    const response = await api({
-      method: "GET",
-      url: "/cabin",
-    });
-
-    if (response.successful) {
-      setcabin(response.data as Cabin);
-    } else if (response.status === 404) {
-      navigate("/setup");
-    }
-  };
-
   useEffect(() => {
+    const fetchCabin = async () => {
+      const response = await api({
+        method: "GET",
+        url: "/cabin",
+      });
+
+      if (response.successful) {
+        setcabin(response.data as Cabin);
+      } else if (response.status === 404) {
+        navigate("/setup");
+      }
+    };
+
     fetchCabin();
-  }, []);
+  }, [navigate]);
 
   return (
     <PageLayout title="Cabin Control" subTitle={cabin?.displayName ?? ""}>
