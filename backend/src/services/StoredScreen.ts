@@ -3,7 +3,7 @@ import WriteFile from "../functions/WriteFile";
 import ScreenMap from "../models/ScreenMap";
 
 const StoredScreen = () => {
-  const screenFilePath = "src/resources/storedScreens.json";
+  const screenFilePath = "src/storedScreens.json";
 
   const getStoredScreens = async (): Promise<ScreenMap[]> => {
     const content = await ReadFile(screenFilePath);

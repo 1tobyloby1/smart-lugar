@@ -1,5 +1,5 @@
 # Use a Node.js base image
-FROM node:17
+FROM arm32v7/node:17
 
 # Set working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY backend/package*.json ./
 COPY shared ../shared
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application
 COPY backend/ .
