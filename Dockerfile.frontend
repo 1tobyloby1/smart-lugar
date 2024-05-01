@@ -1,5 +1,5 @@
 # Use a Node.js base image
-FROM arm32v7/node:17-buster as build
+FROM --platform=linux/arm/v7 arm32v7/node:17 as build
 
 # Set working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY frontend/package*.json ./
 COPY shared ../shared
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the application
 COPY frontend/ .
@@ -20,7 +20,7 @@ COPY frontend/ .
 RUN npm run build
 
 # Use a lightweight Nginix image to serve the frontend
-FROM arm32v7/nginx:alpine
+FROM --platform=linux/arm/v7 arm32v7/nginx:alpine
 
 # Copy built files from the previous stage
 COPY --from=build /app/build /usr/share/nginx/html
