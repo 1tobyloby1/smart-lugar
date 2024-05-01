@@ -1,15 +1,40 @@
 import Controller from "shared/Models/Controller";
 import "./TemperatureSlider.css";
 import CircularSlider from "@fseehawer/react-circular-slider";
+import { useEffect, useMemo, useState } from "react";
+import Interact from "../../functions/Interact";
 
 function TemperatureSlider(props: Controller) {
+  const [temperature, setTemperature] = useState<number | null>(null);
+  const [isDragging, setisDragging] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const data = await Interact(props.nodeId, props.SetPoint!);
+      console.log(data);
+      
+      if (data !== null) {
+        setTemperature(data as number);
+      }
+    })();
+  }, [props.nodeId, props.SetPoint]);
+
+  useMemo(async () => {
+    if (isDragging) return;
+
+    await Interact(props.nodeId, props.SetPoint!, temperature);
+  }, [isDragging, temperature, props.nodeId, props.SetPoint]);
+
+  if (temperature === null) return <div>loading...</div>;
+
   return (
     <div className="temperature-slider-parent">
       <CircularSlider
-        initialValue={1 as number}
-        onChange={(value: any) => console.log(value)}
-        min={0}
-        max={30}
+        initialValue={temperature}
+        onChange={(value: number) => setTemperature(value)}
+        isDragging={(isDragging: boolean) => setisDragging(isDragging)}
+        min={17}
+        max={24}
         width={300}
         direction={1}
         knobPosition="left"

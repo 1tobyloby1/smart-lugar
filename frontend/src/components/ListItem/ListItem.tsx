@@ -4,23 +4,24 @@ import Toggle from "../Toggle/Toggle";
 import "./ListItem.css";
 import Controller from "shared/Models/Controller";
 
-
-
 function ListItem(props: Controller) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const ExpandedBtn = useMemo(() => {
-    return <button
-      className="expandable-button"
-      onClick={() => setIsExpanded(!isExpanded)}
-    >
-      <img
-        src={
-          isExpanded ? "assets/icons/close.png" : "assets/icons/settings.png"
-        }
-        height={30}
-      />
-    </button>
+    return (
+      <button
+        className="expandable-button"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        <img
+          src={
+            isExpanded ? "assets/icons/close.png" : "assets/icons/settings.png"
+          }
+          alt="expandable-button"
+          height={30}
+        />
+      </button>
+    );
   }, [isExpanded]);
 
   return (

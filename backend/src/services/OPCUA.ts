@@ -7,6 +7,7 @@ import {
   OPCUAClient,
   ReferenceDescription,
   StatusCode,
+  TimestampsToReturn,
 } from "node-opcua-client";
 import BrowseOptions from "../models/BrowseOptions";
 
@@ -16,8 +17,9 @@ export interface OPCUAProps {
   browseObjectRecursive: (nodeId: string, filter: (r: ReferenceDescription) => boolean, options?: BrowseOptions) => Promise<ReferenceDescription[]>;
   readVariable: (nodeId: string) => Promise<DataValue>;
   updateVariable: (nodeId: string, value: any) => Promise<StatusCode>;
-  callMethod: (nodeId: string, inputArguments?: []) => Promise<CallMethodResult>;
+  callMethod: (nodeId: string, methodId: string, inputArguments?: []) => Promise<CallMethodResult>;
   disconnect: () => Promise<void>;
+  subscribe: (nodeId: string) => Promise<void>;
 }
 
 const OPCUA = (): OPCUAProps => {
@@ -27,6 +29,23 @@ const OPCUA = (): OPCUAProps => {
   const connect = async () => {
     await client.connect("opc.tcp://192.168.1.17:4840");
     session = await client.createSession();
+  };
+
+  const subscribe = async (nodeId: string) => {
+    try {
+      const subscription = await session.createSubscription2({});
+
+      const monitoredItem = await subscription.monitor({
+        nodeId: nodeId,
+        attributeId: AttributeIds.Value,
+      }, { samplingInterval: 3000, filter: null, queueSize: 1, discardOldest: true }, TimestampsToReturn.Neither);
+
+      monitoredItem.on("changed", (dataValue) => {
+        console.log(dataValue.value.value);
+      });
+    } catch (error) {
+      console.error('Error subscribing to node:', error);
+    }
   };
 
   const disconnect = async () => {
@@ -40,7 +59,7 @@ const OPCUA = (): OPCUAProps => {
         nodeId: nodeId,
         ...options,
       });
-  
+
       if (options?.filter) {
         return browseResult.references!.filter(options.filter);
       }
@@ -78,16 +97,17 @@ const OPCUA = (): OPCUAProps => {
       attributeId: 13,
       value: {
         value: {
-          dataType: DataType.String,
+          dataType: DataType.Double,
           value: value,
         },
       },
     });
   };
 
-  const callMethod = async (nodeId: string, inputArguments?: []) => {
+  const callMethod = async (nodeId: string, methodId: string, inputArguments?: []) => {
     return await session.call({
-      methodId: nodeId,
+      objectId: nodeId,
+      methodId: methodId,
       inputArguments: inputArguments,
     });
   };
@@ -100,6 +120,7 @@ const OPCUA = (): OPCUAProps => {
     updateVariable,
     callMethod,
     disconnect,
+    subscribe,
   };
 };
 

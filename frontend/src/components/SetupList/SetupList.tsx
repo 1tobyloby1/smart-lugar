@@ -3,6 +3,7 @@ import Cabin from "shared/Models/Cabin";
 import { useEffect, useState } from "react";
 import api from "../../functions/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function SetupList() {
   const [cabins, setcabins] = useState<Cabin[] | null>(null);
@@ -16,6 +17,8 @@ function SetupList() {
 
     if (response.successful) {
       setcabins(response.data as Cabin[]);
+    } else {
+      toast.error(response.data);
     }
   };
 
@@ -46,7 +49,7 @@ function SetupList() {
     {cabins?.map((cabin) => {
       return <div key={cabin.nodeId} className="list-item" onClick={() => assignCabin(cabin.nodeId)}>
         <span>{cabin.displayName}</span>
-        <img src="/assets/icons/right-arrow.png"></img>
+        <img src="/assets/icons/right-arrow.png" alt="right-arrow" />
       </div>
     })}
   </div>;
