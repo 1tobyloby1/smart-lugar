@@ -1,7 +1,6 @@
 .Back{
     position: absolute;
     left: 50px;
-    top: 50%;
-    transform: translate(0,-50%);
+    top: 30vh;
     height: 270px;
 }

@@ -10,16 +10,28 @@ import {
   TimestampsToReturn,
 } from "node-opcua-client";
 import BrowseOptions from "../models/BrowseOptions";
+import { ClientMonitoredItem } from "node-opcua-client";
 
 export interface OPCUAProps {
   connect: () => Promise<void>;
-  browseObject: (nodeId: string, options?: BrowseOptions) => Promise<ReferenceDescription[] | null>;
-  browseObjectRecursive: (nodeId: string, filter: (r: ReferenceDescription) => boolean, options?: BrowseOptions) => Promise<ReferenceDescription[]>;
+  browseObject: (
+    nodeId: string,
+    options?: BrowseOptions
+  ) => Promise<ReferenceDescription[] | null>;
+  browseObjectRecursive: (
+    nodeId: string,
+    filter: (r: ReferenceDescription) => boolean,
+    options?: BrowseOptions
+  ) => Promise<ReferenceDescription[]>;
   readVariable: (nodeId: string) => Promise<DataValue>;
   updateVariable: (nodeId: string, value: any) => Promise<StatusCode>;
-  callMethod: (nodeId: string, methodId: string, inputArguments?: []) => Promise<CallMethodResult>;
+  callMethod: (
+    nodeId: string,
+    methodId: string,
+    inputArguments?: []
+  ) => Promise<CallMethodResult>;
   disconnect: () => Promise<void>;
-  subscribe: (nodeId: string) => Promise<void>;
+  subscribe: (nodeId: string) => Promise<ClientMonitoredItem | null>;
 }
 
 const OPCUA = (): OPCUAProps => {
@@ -33,23 +45,35 @@ const OPCUA = (): OPCUAProps => {
 
   const subscribe = async (nodeId: string) => {
     try {
-      const subscription = await session.createSubscription2({});
-
-      const monitoredItem = await subscription.monitor({
-        nodeId: nodeId,
-        attributeId: AttributeIds.Value,
-      }, { samplingInterval: 3000, filter: null, queueSize: 1, discardOldest: true }, TimestampsToReturn.Neither);
-
-      monitoredItem.on("changed", (dataValue) => {
-        console.log(dataValue.value.value);
+      const subscription = await session.createSubscription2({
+        requestedPublishingInterval: 3000,
+        requestedLifetimeCount: 1000,
+        requestedMaxKeepAliveCount: 20,
+        maxNotificationsPerPublish: 100,
+        publishingEnabled: true,
+        priority: 10,
       });
+
+      const monitoredItem = await subscription.monitor(
+        {
+          nodeId: nodeId,
+          attributeId: AttributeIds.Value,
+        },
+        {},
+        TimestampsToReturn.Neither
+      );
+
+      return monitoredItem;
     } catch (error) {
-      console.error('Error subscribing to node:', error);
+      console.error("Error subscribing to node:", error);
+      return null;
     }
   };
 
   const disconnect = async () => {
-    await session.close();
+    if (session) {
+      await session.close();
+    }
     await client.disconnect();
   };
 
@@ -69,7 +93,11 @@ const OPCUA = (): OPCUAProps => {
     }
   };
 
-  const browseObjectRecursive = async (nodeId: string, filter: (r: ReferenceDescription) => boolean, options?: BrowseOptions) => {
+  const browseObjectRecursive = async (
+    nodeId: string,
+    filter: (r: ReferenceDescription) => boolean,
+    options?: BrowseOptions
+  ) => {
     const browseResult = await browseObject(nodeId, options);
     if (!browseResult) return [];
 
@@ -79,8 +107,10 @@ const OPCUA = (): OPCUAProps => {
       if (filter(r)) {
         result.push(r);
       }
-      result = result.concat(await browseObjectRecursive(r.nodeId.toString(), filter, options));
-    };
+      result = result.concat(
+        await browseObjectRecursive(r.nodeId.toString(), filter, options)
+      );
+    }
     return result;
   };
 
@@ -104,7 +134,11 @@ const OPCUA = (): OPCUAProps => {
     });
   };
 
-  const callMethod = async (nodeId: string, methodId: string, inputArguments?: []) => {
+  const callMethod = async (
+    nodeId: string,
+    methodId: string,
+    inputArguments?: []
+  ) => {
     return await session.call({
       objectId: nodeId,
       methodId: methodId,

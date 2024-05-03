@@ -5,6 +5,7 @@ import swaggerSpec from "../swagger";
 import cabinRoutes from "./routes/cabinRoutes";
 import mapRoutes from "./routes/mapRoutes";
 import cors from "cors";
+import listenToNode from "./routes/listenToNode";
 
 if (process.env.NODE_ENV === "production") {
   dotenv.config({ path: ".env.production" });
@@ -22,6 +23,8 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/mapping", mapRoutes);
 app.use("/cabin", cabinRoutes);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+listenToNode(server);

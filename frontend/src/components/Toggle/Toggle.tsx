@@ -1,28 +1,25 @@
 import Controller from "shared/Models/Controller";
 import Switch from "react-switch";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Toggle.css";
 import Interact from "../../functions/Interact";
+import { toast } from "react-toastify";
+import useVariableListener from "../../hooks/useVariableListener";
 
 function Toggle(props: Controller) {
   const [isChecked, setisChecked] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const data = await Interact(props.nodeId, props.IsEnabled);
-      
-      if (data !== null) {
-        setisChecked(data as boolean);
-      }
-    })();
-  }, [props.nodeId, props.IsEnabled]);
+  useVariableListener(props.IsEnabled, setisChecked);
 
   const handleToggle = async (newValue: boolean) => {
+    setisChecked(newValue);
+
     const methodIdToCall = isChecked ? props.Disable : props.Enable;
     const result = await Interact(props.nodeId, methodIdToCall);
-    console.log(result);
 
-    setisChecked(newValue);
+    if (!result.successful) {
+      setisChecked(!newValue);
+      toast.error("Unable toggle");
+    }
   };
 
   return (

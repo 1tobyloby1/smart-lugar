@@ -1,11 +1,10 @@
 .PageLayout-parent {
   text-align: center;
-  margin-top: 50px;
 }
 
 .PageLayout-parent .PageLayout-children {
   display: flex;
-  margin-top: 50px;
+  margin-top: 20px;
   position: relative;
   align-items: center;
   flex-direction: column;

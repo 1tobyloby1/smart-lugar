@@ -1,24 +1,38 @@
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Controller from "shared/Models/Controller";
+import ReactPageScroller from "react-page-scroller";
+import PageTabs from "./PageTabs/PageTabs";
+import { useState } from "react";
 
 interface SubPagesProps {
-    children: JSX.Element[];
-    controllers: Controller[];
-};
+  children: JSX.Element[];
+  controllers: Controller[];
+}
 
 const SubPages = (props: SubPagesProps) => {
-    return (
-        <Tabs>
-            <TabList>
-                {props.controllers.map((controller) => {
-                    return <Tab key={controller.room}>{controller.room}</Tab>
-                })}
-            </TabList>
-            {props.children.map((child, index) => {
-                return <TabPanel key={props.controllers[index].nodeId}>{child}</TabPanel>;
-            })}
-        </Tabs>
-    );
+  const [activePage, setactivePage] = useState(0);
+
+  const changePage = (num: number) => {
+    setactivePage(num);
+  };
+
+  return (
+    <>
+      <PageTabs
+        onChange={changePage}
+        current={activePage}
+        controllers={props.controllers}
+      />
+      <ReactPageScroller
+        animationTimer={500}
+        pageOnChange={changePage}
+        customPageNumber={activePage}
+      >
+        {props.children.map((child, index) => {
+          return <div key={props.controllers[index].nodeId}>{child}</div>;
+        })}
+      </ReactPageScroller>
+    </>
+  );
 };
 
 export default SubPages;
