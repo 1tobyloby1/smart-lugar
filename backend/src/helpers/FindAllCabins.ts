@@ -7,7 +7,6 @@ const FindAllCabins = async (opcuaInstance: OPCUAProps, cabinsFolder: string): P
         nodeClassMask: NodeClass.Object,
         resultMask: ResultMask.DisplayName,
     });
-
     if (!cabins) return [];
 
     return cabins.map((cabin) => {

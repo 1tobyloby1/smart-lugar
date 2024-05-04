@@ -28,7 +28,7 @@ function HomePage() {
   }, [navigate]);
 
   return (
-    <PageLayout title="Cabin Control" subTitle={cabin?.displayName ?? ""}>
+    <PageLayout title="Cabin Control">
       <Grid>
         {cabin &&
           cabin.zones.map((zone) => {

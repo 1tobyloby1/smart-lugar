@@ -4,7 +4,7 @@ import ComponentTypes from "shared/resources/ComponentTypes";
 
 const MapComponentType = (parent: ReferenceDescription, room: Room): keyof typeof ComponentTypes => {
     if (parent.typeDefinition.toString() === "ns=5;i=719") return "List_Item";
-    else if (room.type === "ns=5;i=599" && parent.typeDefinition.toString() === "ns=5;i=723") return "Temperature_Slider";
+    else if (room.type === "ns=5;i=599" && parent.typeDefinition.toString() === "ns=5;i=966") return "Temperature_Slider";
 
     return "List_Item";
 }

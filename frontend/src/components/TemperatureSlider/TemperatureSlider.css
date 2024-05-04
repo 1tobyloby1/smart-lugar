@@ -1,3 +1,7 @@
+.temperature-wrapper {
+    padding: 10px;
+}
+
 .temperature-slider-parent {
     background-color: #BEC7C8;
     width: 300px;
@@ -5,6 +9,7 @@
     border-radius: 50%;
     outline: 10px solid rgba(255, 238, 348, .20);
     font-weight: 600;
+    margin: auto;
 }
 
 .temperature-slider-parent > div > div > div:last-child {

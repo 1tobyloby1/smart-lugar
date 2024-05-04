@@ -19,7 +19,7 @@ const ZonePage = (zone: Zone, subTitle: string) => {
   }).flat();
 
   return (
-    <PageLayout title={zone.displayName} subTitle={subTitle}>
+    <PageLayout title={zone.displayName}>
       {componentMapping(controllers)}
     </PageLayout>
   );

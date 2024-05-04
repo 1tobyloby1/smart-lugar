@@ -26,17 +26,23 @@ function ListItem(props: Controller) {
 
   return (
     <div className="list-item-parent">
-      <strong>{props.room}</strong>
-      <Toggle {...props} />
-      <div
-        className="list-expandable"
-        style={{ width: isExpanded ? "400px" : "0" }}
-      >
-        <div className="expandable-content">
-          {props.SetPoint && <Slider {...props} />}
-        </div>
+      <div className="list-item-wrapper">
+        <strong>{props.room}</strong>
+        <Toggle {...props} />
       </div>
-      {props.SetPoint && ExpandedBtn}
+      {props.SetPoint && (
+        <>
+          <div
+            className="list-expandable"
+            style={{ width: isExpanded ? "350px" : "0" }}
+          >
+            <div className="expandable-content">
+              <Slider {...props} />
+            </div>
+          </div>
+          {ExpandedBtn}
+        </>
+      )}
     </div>
   );
 }

@@ -1,9 +1,6 @@
-import { toast } from "react-toastify";
-import api from "./api";
+import api, { apiResponse } from "./api";
 
-const Interact = async (parentId: string, nodeId: string, value?: any): Promise<any> => {
-    let componentData;
-
+const Interact = async (parentId: string, nodeId: string, value?: any): Promise<apiResponse> => {
     const response = await api({
         method: "GET",
         url: `/mapping/interact`,
@@ -14,13 +11,7 @@ const Interact = async (parentId: string, nodeId: string, value?: any): Promise<
         },
     });
 
-    if (response.successful) {
-        componentData = response.data;
-    } else {
-        toast.error(response.data);
-    }
-
-    return componentData;
+    return response;
 }
 
 export default Interact;

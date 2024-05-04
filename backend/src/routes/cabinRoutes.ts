@@ -30,6 +30,11 @@ const cabinRoutes = express.Router();
  *         description: No cabin found
  */
 cabinRoutes.get('/', async (req: Request, res: Response) => {
+  if (data.length === 0) {
+    res.status(500).json({ message: 'Backend is booting up' });
+    return;
+  }
+
   const storedScreen = StoredScreen();
   const takenScreens = await storedScreen.getStoredScreens();
 

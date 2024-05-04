@@ -14,6 +14,7 @@ const MapOPCUA = async (): Promise<Cabin[]> => {
     let cabins = await FindAllCabins(opcuaInstance, "ns=5;i=185");
     for (let i = 0; i < cabins.length; i++) {
         let cabin = cabins[i];
+
         cabin.zones = await MapZones(opcuaInstance, cabin);
 
         cabins[i] = cabin;
