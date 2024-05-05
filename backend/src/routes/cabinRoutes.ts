@@ -1,7 +1,7 @@
-import express, { Request, Response } from 'express';
-import Cabin from 'shared/Models/Cabin';
-import MapOPCUA from '../functions/MapOPCUA';
-import StoredScreen from '../services/StoredScreen';
+import express, { Request, Response } from "express";
+import Cabin from "shared/Models/Cabin";
+import MapOPCUA from "../functions/MapOPCUA";
+import StoredScreen from "../services/StoredScreen";
 
 let data: Cabin[] = [];
 (async () => {
@@ -29,9 +29,9 @@ const cabinRoutes = express.Router();
  *       '404':
  *         description: No cabin found
  */
-cabinRoutes.get('/', async (req: Request, res: Response) => {
+cabinRoutes.get("/", async (req: Request, res: Response) => {
   if (data.length === 0) {
-    res.status(500).json({ message: 'Backend is booting up' });
+    res.status(500).json({ message: "Backend is booting up" });
     return;
   }
 
@@ -42,11 +42,60 @@ cabinRoutes.get('/', async (req: Request, res: Response) => {
   const cabin = data.find((cabin) => cabin.nodeId === cabinId);
 
   if (!cabin) {
-    res.status(404).json({ message: 'No cabin found', ip: req.ip });
+    res.status(404).json({ message: "No cabin found", ip: req.ip });
     return;
   } else {
     res.status(200).json(cabin);
   }
+});
+
+/**
+ * @swagger
+ * /cabin/listeners:
+ *   get:
+ *     summary: Get all nodes to listen to
+ *     tags: [Cabin]
+ *     responses:
+ *       '200':
+ *         description: List of nodes
+ *       '404':
+ *         description: No cabin found
+ */
+cabinRoutes.get("/listeners", async (req: Request, res: Response) => {
+  if (data.length === 0) {
+    res.status(500).json({ message: "Backend is booting up" });
+    return;
+  }
+
+  const storedScreen = StoredScreen();
+  const takenScreens = await storedScreen.getStoredScreens();
+
+  const cabinId = takenScreens.find((screen) => screen.ip === req.ip)?.nodeid;
+  const cabin = data.find((cabin) => cabin.nodeId === cabinId);
+
+  if (!cabin) {
+    res.status(404).json({ message: "No cabin found", ip: req.ip });
+    return;
+  }
+
+  const allNodesToListen = cabin.zones
+    .map((zone) =>
+      zone.rooms
+        .map((room) =>
+          room.controllers
+            .map((controller) => {
+              return [
+                controller.ActualValue,
+                controller.IsEnabled,
+                controller.SetPoint,
+              ];
+            })
+            .flat()
+        )
+        .flat()
+    )
+    .flat();
+  res.status(200).json(allNodesToListen);
 });
 
 /**
@@ -116,7 +165,10 @@ cabinRoutes.post("/assign", async (req: Request, res: Response) => {
   }
 
   const storedScreen = StoredScreen();
-  const addScreen = await storedScreen.storeScreen({ ip: req.ip, nodeid: nodeId.toString() });
+  const addScreen = await storedScreen.storeScreen({
+    ip: req.ip,
+    nodeid: nodeId.toString(),
+  });
 
   if (!addScreen) {
     res.status(400).json({ message: "Unable to assign cabin" });

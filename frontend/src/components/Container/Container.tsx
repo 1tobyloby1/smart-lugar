@@ -11,7 +11,7 @@ function Container(props: Zone) {
     return (
       <div className="Container-parent" onClick={() => navigate(props.browseName)}>
         <div>
-          <img className="Container-icon" src={findIcon("")} alt="icon" />
+          <img className="Container-icon" src={findIcon(props.displayName)} alt="icon" />
           <h3>{props.displayName}</h3>
         </div>
       </div>

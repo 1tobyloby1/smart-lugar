@@ -6,6 +6,15 @@ import cabinRoutes from "./routes/cabinRoutes";
 import mapRoutes from "./routes/mapRoutes";
 import cors from "cors";
 import listenToNode from "./routes/listenToNode";
+import OPCUA, { OPCUAProps } from "./services/OPCUA";
+
+declare global {
+  namespace Express {
+    interface Request {
+      opcuaInstance: OPCUAProps;
+    }
+  }
+}
 
 if (process.env.NODE_ENV === "production") {
   dotenv.config({ path: ".env.production" });
@@ -17,8 +26,18 @@ const app: Express = express();
 const port = process.env.PORT || 80;
 
 app.use(cors());
-
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+const opcuaInstance = OPCUA();
+
+app.use(async (req, res, next) => {
+  if (!opcuaInstance.isConnected()) {
+    await opcuaInstance.connect();
+  }
+
+  req.opcuaInstance = opcuaInstance;
+  next();
+});
 
 app.use("/mapping", mapRoutes);
 app.use("/cabin", cabinRoutes);
@@ -27,4 +46,4 @@ const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
 
-listenToNode(server);
+listenToNode(server, opcuaInstance);

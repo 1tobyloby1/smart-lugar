@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Controller from "shared/Models/Controller";
 import "./Slider.css";
 import Interact from "../../functions/Interact";

@@ -1,8 +1,8 @@
 import { WebSocketServer } from "ws";
 import { Server } from "http";
-import OPCUA, { OPCUAProps } from "../services/OPCUA";
+import { OPCUAProps } from "../services/OPCUA";
 
-const listenToNode = async (server: Server) => {
+const listenToNode = async (server: Server, opcua: OPCUAProps) => {
   const wsServer = new WebSocketServer({
     server: server,
     clientTracking: true,
@@ -14,13 +14,8 @@ const listenToNode = async (server: Server) => {
       return;
     }
 
-    let opcuaInstance: OPCUAProps;
-
     socket.on("message", async (nodeId) => {
-      opcuaInstance = OPCUA();
-      await opcuaInstance.connect();
-
-      const subscription = await opcuaInstance.subscribe(nodeId.toString());
+      const subscription = await opcua.subscribe(nodeId.toString());
 
       if (!subscription) {
         socket.send("-1");
@@ -30,12 +25,6 @@ const listenToNode = async (server: Server) => {
       subscription.on("changed", (dataValue) => {
         socket.send(dataValue.value.value.toString());
       });
-    });
-
-    socket.on("close", () => {
-      if (opcuaInstance) {
-        opcuaInstance.disconnect();
-      }
     });
   });
 };

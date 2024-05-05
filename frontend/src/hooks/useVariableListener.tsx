@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const useVariableListener = (nodeId: string, onUpdate: Dispatch<any>) => {
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:80/listenToNode");
+    const socket = new WebSocket(process.env.REACT_APP_SOCKET ?? "");
 
     socket.addEventListener("open", () => {
       socket.send(nodeId);

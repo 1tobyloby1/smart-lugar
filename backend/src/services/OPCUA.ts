@@ -30,7 +30,7 @@ export interface OPCUAProps {
     methodId: string,
     inputArguments?: []
   ) => Promise<CallMethodResult>;
-  disconnect: () => Promise<void>;
+  isConnected: () => boolean;
   subscribe: (nodeId: string) => Promise<ClientMonitoredItem | null>;
 }
 
@@ -41,6 +41,10 @@ const OPCUA = (): OPCUAProps => {
   const connect = async () => {
     await client.connect("opc.tcp://192.168.1.17:4840");
     session = await client.createSession();
+  };
+
+  const isConnected = (): boolean => {
+    return session ? true : false;
   };
 
   const subscribe = async (nodeId: string) => {
@@ -68,13 +72,6 @@ const OPCUA = (): OPCUAProps => {
       console.error("Error subscribing to node:", error);
       return null;
     }
-  };
-
-  const disconnect = async () => {
-    if (session) {
-      await session.close();
-    }
-    await client.disconnect();
   };
 
   const browseObject = async (nodeId: string, options?: BrowseOptions) => {
@@ -153,8 +150,8 @@ const OPCUA = (): OPCUAProps => {
     readVariable,
     updateVariable,
     callMethod,
-    disconnect,
     subscribe,
+    isConnected,
   };
 };
 

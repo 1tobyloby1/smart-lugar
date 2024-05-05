@@ -1,8 +1,8 @@
 const Icons = [
-    "air-condition",
+    "air-conditioning",
     "curtains",
     "gloves",
-    "heating",
+    "floor-heating",
     "lights",
     "rotate-screen"
 ];
