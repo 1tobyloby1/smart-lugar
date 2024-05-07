@@ -4,10 +4,15 @@ import CircularSlider from "@fseehawer/react-circular-slider";
 import { useEffect, useMemo, useState } from "react";
 import Interact from "../../functions/Interact";
 import { toast } from "react-toastify";
+import useVariableListener from "../../hooks/useVariableListener";
 
 function TemperatureSlider(props: Controller) {
   const [temperature, setTemperature] = useState<number | null>(null);
+  const [currentTemp, setcurrentTemp] = useState(0);
   const [isDragging, setisDragging] = useState(false);
+  useVariableListener(props.ActualValue!, setcurrentTemp);
+
+  console.log(currentTemp);
 
   useEffect(() => {
     (async () => {

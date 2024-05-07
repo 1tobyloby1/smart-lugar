@@ -8,6 +8,9 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        component: ['frontend', 'backend']
 
     steps:
       - name: Checkout Repository
@@ -22,12 +25,7 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build and push frontend Docker image
+      - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest -f Dockerfile.frontend .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-
-      - name: Build and push backend Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest -f Dockerfile.backend .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.component }}:latest -f Dockerfile.${{ matrix.component }} .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.component }}:latest
