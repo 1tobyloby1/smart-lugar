@@ -26,15 +26,6 @@ const Slider = (props: Controller) => {
     return `linear-gradient(to right, #F58014 ${percentage}%, #D9D9D9 ${percentage}%)`;
   };
 
-  /*useEffect(() => {
-    (async () => {
-      const response = await Interact(props.nodeId, props.SetPoint!);
-      if (response.successful) {
-        setValue(response.data as number);
-      }
-    })();
-  }, [props.nodeId, props.SetPoint]);*/
-
   return (
     <div className="slider-parent">
       <input

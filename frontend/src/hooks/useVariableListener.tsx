@@ -3,6 +3,16 @@ import { toast } from "react-toastify";
 
 const useVariableListener = (nodeId: string, onUpdate: Dispatch<any>) => {
   useEffect(() => {
+    /* const initFetch = async () => {
+      const response = await Interact(parentId, nodeId);
+      if (response.successful) {
+        console.log("1:", response.data);
+        
+        onUpdate(response.data as number);
+      }
+    };
+
+    initFetch(); */
     const socket = new WebSocket(process.env.REACT_APP_SOCKET ?? "");
 
     socket.addEventListener("open", () => {
