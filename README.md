@@ -10,6 +10,7 @@ Before running this project locally or deploying it, ensure you have the followi
 
 * [Node.js](https://nodejs.org/en) (version >= 20)
 * [Docker](https://www.docker.com/) (for running Docker containers)
+* OPC UA server (You need your own running opc ua server)
 
 <br>
 
@@ -40,6 +41,11 @@ npm start
 cd frontend # (frontend/backend)
 npm start
 ```
+
+<br>
+
+## Try out the API (Documentation)
+This project uses swagger UI for documenting the API. When the backend is running you can try out all the different endpoints by going to [localhost/swagger](http://localhost:80/swagger). You can also find the documentation by going to https://app.swaggerhub.com/apis-docs/600879/smart-lugar-api/1.0.0.
 
 <br>
 

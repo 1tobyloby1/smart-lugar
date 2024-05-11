@@ -1,19 +1,19 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerJSDoc from "swagger-jsdoc";
 
 const options: swaggerJSDoc.Options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Smart Lugar API',
-      version: '1.0.0',
-      description: 'Description of your API',
+      title: "Smart Lugar API",
+      version: "1.0.0",
+      description: "Description of your API",
     },
     externalDocs: {
-      description: 'Find out more about Swagger',
-      url: 'http://swagger.io',
+      description: "swagger.json",
+      url: "/swagger.json",
     },
   },
-  apis: ['./src/routes/*.ts'],
+  apis: ["./src/routes/*.ts"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
