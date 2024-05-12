@@ -28,14 +28,23 @@ const port = process.env.PORT || 80;
 app.use(cors());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 const opcuaInstance = OPCUA();
 
 app.use(async (req, res, next) => {
-  if (!opcuaInstance.isConnected()) {
-    await opcuaInstance.connect();
-  }
+  try {
+    if (!opcuaInstance.isConnected()) {
+      await opcuaInstance.connect();
+    }
 
-  req.opcuaInstance = opcuaInstance;
+    req.opcuaInstance = opcuaInstance;
+  } catch (error) {
+    console.log(error);
+  }
   next();
 });
 
