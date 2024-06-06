@@ -25,6 +25,8 @@ const SubPages = (props: SubPagesProps) => {
       <ReactPageScroller
         animationTimer={500}
         pageOnChange={changePage}
+        blockScrollDown={true}
+        blockScrollUp={true}
         customPageNumber={activePage}
       >
         {props.children.map((child, index) => {
